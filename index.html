@@ -1,38 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Files</title>
-</head>
-<body>
+<!doctype html><html><head></head><body><input type="file" id="fileInput" multiple style="display: block; margin: 20px auto; padding: 10px; font-size: 16px; cursor: pointer; border-radius: 10px; border: 2px solid #00c6ff; background: linear-gradient(45deg, #00c6ff, #0072ff); color: white; transition: 0.3s;">
+<div id="fileDisplay"
+	style="width: 100vw; max-width: 90vw; margin: auto; overflow: auto; padding: 20px; background: #121212; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);">
+</div>
 
-    <h2>Select a file to open</h2>
-    <input type="file" id="fileInput" accept=".pdf,.png,.jpg,.jpeg,.mp4,.mp3,.docx,.webm" />
-    <br><br>
-    <div id="fileDisplay"></div>
+<script>
+	document.getElementById('fileInput').addEventListener('change', function(event) {
+        const files = event.target.files;
+        const fileDisplay = document.getElementById('fileDisplay');
+        fileDisplay.innerHTML = ''; // Clear previous content
 
-    <script>
-        document.getElementById('fileInput').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const fileDisplay = document.getElementById('fileDisplay');
-                const fileURL = URL.createObjectURL(file);
-                
-                if (file.type.includes('image')) {
-                    fileDisplay.innerHTML = `<img src="${fileURL}" width="400" />`;
-                } else if (file.type.includes('video')) {
-                    fileDisplay.innerHTML = `<video controls width="300"><source src="${fileURL}" type="${file.type}"></video>`;
-                } else if (file.type.includes('audio')) {
-                    fileDisplay.innerHTML = `<audio controls><source src="${fileURL}" type="${file.type}"></audio>`;
-                } else if (file.type.includes('pdf')) {
-                    fileDisplay.innerHTML = `<embed src="${fileURL}" type="application/pdf" width="90%" height="100%">`;
-                } else {
-                    fileDisplay.innerHTML = `<p>File selected: ${file.name}</p>`;
-                }
+        Array.from(files).forEach(file => {
+            const fileURL = URL.createObjectURL(file);
+            const fileContainer = document.createElement('div');
+            fileContainer.style.marginBottom = "20px";
+            fileContainer.style.width = "100%";
+            fileContainer.style.padding = "15px";
+            fileContainer.style.background = "#1e1e1e";
+            fileContainer.style.borderRadius = "8px";
+            fileContainer.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.5)";
+            fileContainer.style.transition = "transform 0.3s ease-in-out";
+            
+            fileContainer.onmouseover = () => fileContainer.style.transform = "scale(1.02)";
+            fileContainer.onmouseout = () => fileContainer.style.transform = "scale(1)";
+
+            if (file.type.includes('image')) {
+                fileContainer.innerHTML = `<img src="${fileURL}" style="width:100%; max-width:100vw; height:auto; display:block; border-radius: 5px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);" />`;
+            } else if (file.type.includes('video')) {
+                fileContainer.innerHTML = `<video controls style="width:100%; max-width:100vw; height:90vh; display:block; border-radius: 5px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);"><source src="${fileURL}" type="${file.type}"></video>`;
+            } else if (file.type.includes('audio')) {
+                fileContainer.innerHTML = `<audio controls style="width:100%; display:block; border-radius: 5px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);"><source src="${fileURL}" type="${file.type}"></audio>`;
+            } else if (file.type.includes('pdf')) {
+                fileContainer.innerHTML = `<embed src="${fileURL}" type="application/pdf" style="width:100%; max-width:100vw; height:90vh; display:block; border-radius: 5px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);">`;
+            } else {
+                fileContainer.innerHTML = `<p style="font-size: 18px; color: white;">File selected: ${file.name}</p>`;
             }
-        });
-    </script>
 
-</body>
-</html>
+            fileDisplay.appendChild(fileContainer);
+        });
+    });
+</script></body><html>
