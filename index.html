@@ -20,13 +20,13 @@
                 const fileURL = URL.createObjectURL(file);
                 
                 if (file.type.includes('image')) {
-                    fileDisplay.innerHTML = `<img src="${fileURL}" width="300" />`;
+                    fileDisplay.innerHTML = `<img src="${fileURL}" width="400" />`;
                 } else if (file.type.includes('video')) {
                     fileDisplay.innerHTML = `<video controls width="300"><source src="${fileURL}" type="${file.type}"></video>`;
                 } else if (file.type.includes('audio')) {
                     fileDisplay.innerHTML = `<audio controls><source src="${fileURL}" type="${file.type}"></audio>`;
                 } else if (file.type.includes('pdf')) {
-                    fileDisplay.innerHTML = `<embed src="${fileURL}" type="application/pdf" width="600" height="500">`;
+                    fileDisplay.innerHTML = `<embed src="${fileURL}" type="application/pdf" width="90%" height="100%">`;
                 } else {
                     fileDisplay.innerHTML = `<p>File selected: ${file.name}</p>`;
                 }
