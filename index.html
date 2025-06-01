@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Files</title>
+</head>
+<body>
+
+    <h2>Select a file to open</h2>
+    <input type="file" id="fileInput" accept=".pdf,.png,.jpg,.jpeg,.mp4,.mp3,.docx,.webm" />
+    <br><br>
+    <div id="fileDisplay"></div>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const fileDisplay = document.getElementById('fileDisplay');
+                const fileURL = URL.createObjectURL(file);
+                
+                if (file.type.includes('image')) {
+                    fileDisplay.innerHTML = `<img src="${fileURL}" width="300" />`;
+                } else if (file.type.includes('video')) {
+                    fileDisplay.innerHTML = `<video controls width="300"><source src="${fileURL}" type="${file.type}"></video>`;
+                } else if (file.type.includes('audio')) {
+                    fileDisplay.innerHTML = `<audio controls><source src="${fileURL}" type="${file.type}"></audio>`;
+                } else if (file.type.includes('pdf')) {
+                    fileDisplay.innerHTML = `<embed src="${fileURL}" type="application/pdf" width="600" height="500">`;
+                } else {
+                    fileDisplay.innerHTML = `<p>File selected: ${file.name}</p>`;
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
