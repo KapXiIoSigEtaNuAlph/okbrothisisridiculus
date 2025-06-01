@@ -1,7 +1,14 @@
-<!doctype html><html><head></head><body><input type="file" id="fileInput" multiple style="display: block; margin: 20px auto; padding: 10px; font-size: 16px; cursor: pointer; border-radius: 10px; border: 2px solid #00c6ff; background: linear-gradient(45deg, #00c6ff, #0072ff); color: white; transition: 0.3s;">
-<div id="fileDisplay"
-	style="width: 100vw; max-width: 90vw; margin: auto; overflow: auto; padding: 20px; background: #121212; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);">
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Files</title>
+</head>
+<body>
+
+    <input type="file" id="fileInput" multiple>
+<div id="fileDisplay" style="width: 100%; max-width: 90vw; margin: auto; overflow: auto;"></div>
 
 <script>
 	document.getElementById('fileInput').addEventListener('change', function(event) {
@@ -12,30 +19,27 @@
         Array.from(files).forEach(file => {
             const fileURL = URL.createObjectURL(file);
             const fileContainer = document.createElement('div');
-            fileContainer.style.marginBottom = "20px";
+            fileContainer.style.marginBottom = "20px"; // Space between files
             fileContainer.style.width = "100%";
-            fileContainer.style.padding = "15px";
-            fileContainer.style.background = "#1e1e1e";
-            fileContainer.style.borderRadius = "8px";
-            fileContainer.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.5)";
-            fileContainer.style.transition = "transform 0.3s ease-in-out";
-            
-            fileContainer.onmouseover = () => fileContainer.style.transform = "scale(1.02)";
-            fileContainer.onmouseout = () => fileContainer.style.transform = "scale(1)";
 
             if (file.type.includes('image')) {
-                fileContainer.innerHTML = `<img src="${fileURL}" style="width:100%; max-width:100vw; height:auto; display:block; border-radius: 5px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);" />`;
+                fileContainer.innerHTML = `<img src="${fileURL}" style="width:100%; max-width:100vw; height:auto; display:block;" />`;
             } else if (file.type.includes('video')) {
-                fileContainer.innerHTML = `<video controls style="width:100%; max-width:100vw; height:90vh; display:block; border-radius: 5px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);"><source src="${fileURL}" type="${file.type}"></video>`;
+                fileContainer.innerHTML = `<video controls style="width:100%; max-width:100vw; height:90vh; display:block;"><source src="${fileURL}" type="${file.type}"></video>`;
             } else if (file.type.includes('audio')) {
-                fileContainer.innerHTML = `<audio controls style="width:100%; display:block; border-radius: 5px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);"><source src="${fileURL}" type="${file.type}"></audio>`;
+                fileContainer.innerHTML = `<audio controls style="width:100%; display:block;"><source src="${fileURL}" type="${file.type}"></audio>`;
             } else if (file.type.includes('pdf')) {
-                fileContainer.innerHTML = `<embed src="${fileURL}" type="application/pdf" style="width:100%; max-width:100vw; height:90vh; display:block; border-radius: 5px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);">`;
+                fileContainer.innerHTML = `<embed src="${fileURL}" type="application/pdf" style="width:100%; max-width:100vw; height:90vh; display:block;">`;
             } else {
-                fileContainer.innerHTML = `<p style="font-size: 18px; color: white;">File selected: ${file.name}</p>`;
+                fileContainer.innerHTML = `<p style="font-size: 18px;">File selected: ${file.name}</p>`;
             }
 
             fileDisplay.appendChild(fileContainer);
         });
     });
-</script></body><html>
+</script>
+
+<iframe src="https://desmos.com/calculator/03c284q1pc" width="75%" height="810px" ></iframe> 
+
+</body>
+</html>
